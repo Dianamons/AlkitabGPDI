@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alkitab GPDI SYALOM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,121 +12,93 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
             color: #333;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            line-height: 1.6;
         }
 
         header {
             text-align: center;
-            margin-bottom: 50px;
+            background-color: #4CAF50;
+            padding: 20px;
+            color: white;
         }
 
-        .logo-container {
-            display: inline-block;
+        header h1 {
+            margin-top: 10px;
+        }
+
+        .search {
             text-align: center;
+            padding: 30px;
         }
 
-        .logo {
-            width: 120px;
-            height: auto;
-            margin-bottom: 10px;
-        }
-
-        .site-name {
-            font-size: 28px;
-            font-weight: 600;
-            color: #4CAF50;
-        }
-
-        .search-section {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            font-size: 32px;
+        .search h2 {
+            font-size: 24px;
             margin-bottom: 20px;
-            color: #333;
         }
 
-        #searchInput {
-            padding: 12px 20px;
-            width: 70%;
-            margin-right: 10px;
-            border: 2px solid #4CAF50;
-            border-radius: 30px;
-            outline: none;
+        .search input {
+            padding: 10px;
             font-size: 16px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            width: 60%;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
 
-        #searchInput:focus {
-            border-color: #45a049;
-            box-shadow: 0 4px 8px rgba(0, 150, 0, 0.2);
-        }
-
-        #searchButton {
-            padding: 12px 25px;
+        .search button {
+            padding: 10px 20px;
             background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 30px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 16px;
-            margin-left: 10px;
         }
 
-        #searchButton:hover {
+        .search button:hover {
             background-color: #45a049;
-            transform: scale(1.05);
-        }
-
-        #searchButton:active {
-            transform: scale(0.95);
         }
 
         .result-box {
-            margin-top: 20px;
-            padding: 20px;
             background-color: #4CAF50;
             color: white;
-            display: none;
-            border-radius: 15px;
-            width: 70%;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
         }
 
         .action-buttons {
             display: flex;
-            justify-content: space-around;
-            width: 80%;
-            margin-top: 50px;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 30px;
             margin-bottom: 50px;
             flex-wrap: wrap;
+            gap: 20px;
+            text-align: center;
         }
 
         .button {
-            text-align: center;
             background-color: #4CAF50;
-            padding: 20px;
-            border-radius: 20px;
-            width: 100px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            width: 30%;
             cursor: pointer;
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
             transition: all 0.3s ease;
         }
 
         .button img {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             margin-bottom: 10px;
+        }
+
+        .button p {
+            color: white;
         }
 
         .button:hover {
@@ -139,101 +110,39 @@
             transform: scale(0.95);
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            padding-top: 60px;
-            transition: all 0.4s ease;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 600px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .modal-header {
-            font-size: 24px;
-            font-weight: bold;
-            color: #4CAF50;
-        }
-
-        .modal-body {
-            font-size: 16px;
-            margin-top: 15px;
-            color: #555;
-        }
-
-        .close {
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-            float: right;
-            cursor: pointer;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-        }
-
-        .dark-mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: transparent;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 10;
-        }
-
-        .dark-mode {
-            background-color: #333;
-            color: white;
-        }
-
         @media (max-width: 768px) {
-            #searchInput {
-                width: 80%;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
             .button {
-                margin-bottom: 20px;
+                width: 45%;
             }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo-container">
-            <img src="logo.png" alt="Logo Alkitab GPDI SYALOM" class="logo">
-            <p class="site-name">ALKITAB GPDI SYALOM</p>
+        <div class="logo">
+            <img src="logo.png" alt="Logo Alkitab GPDI SYALOM">
+            <h1>ALKITAB GPDI SYALOM</h1>
         </div>
     </header>
 
     <main>
-        <section class="search-section">
-            <h1>Masukkan Ayat</h1>
+        <section class="search">
+            <h2>Masukkan Ayat</h2>
             <input type="text" id="searchInput" placeholder="Cari ayat...">
-            <button id="searchButton">Cari</button>
-            <div id="resultBox" class="result-box"></div>
+            <button onclick="searchVerse()">Cari</button>
+            <div id="result" class="result-box">
+                <!-- Hasil pencarian ayat akan tampil di sini -->
+            </div>
         </section>
 
         <section class="action-buttons">
@@ -252,18 +161,29 @@
         </section>
     </main>
 
-    <div id="ayatModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('ayatModal')">&times;</span>
-            <div class="modal-header">Pencarian Ayat</div>
-            <div class="modal-body">Fitur untuk mencari ayat berdasarkan kata kunci yang dimasukkan.</div>
-        </div>
-    </div>
+    <footer>
+        <p>© 2025 Alkitab GPDI SYALOM</p>
+    </footer>
 
-    <div id="bacaanModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('bacaanModal')">&times;</span>
-            <div class="modal-header">Bacaan Harian</div>
-            <div class="modal-body">Fitur untuk menampilkan bacaan harian dari Alkitab sesuai tanggal.</div>
-        </div>
-    </
+    <script>
+        // Fungsi untuk melakukan pencarian ayat
+        function searchVerse() {
+            var query = document.getElementById('searchInput').value;
+            var resultBox = document.getElementById('result');
+
+            if (query === '') {
+                resultBox.innerHTML = 'Masukkan ayat untuk pencarian.';
+                return;
+            }
+
+            // Gantilah dengan pencarian yang sebenarnya (misalnya dari API atau database)
+            resultBox.innerHTML = `Hasil pencarian untuk: <strong>${query}</strong>`;
+        }
+
+        // Modal show function (Contoh)
+        function showModal(modalId) {
+            alert('Fitur ' + modalId + ' belum diimplementasikan.');
+        }
+    </script>
+</body>
+</html>
