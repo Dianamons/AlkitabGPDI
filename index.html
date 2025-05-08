@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alkitab GPDI SYALOM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: black;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .search-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 60%;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            margin: 10px 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .verse-container {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .footer-logo {
+            text-align: center;
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+        }
+
+        .footer-logo img {
+            width: 50px;
+            height: auto;
+        }
+
+        .sticky-buttons {
+            position: fixed;
+            bottom: 60px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sticky-buttons button {
+            margin: 10px;
+        }
+
+        #darkModeToggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+        }
+
+        .dark-mode {
+            background-color: #333;
+            color: white;
+        }
+
+        .dark-mode button {
+            background-color: #555;
+        }
+
+        .dark-mode .footer-logo p {
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Selamat Datang di Alkitab GPDI SYALOM</h1>
+        
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Cari Ayat...">
+            <button onclick="searchVerse()">Cari</button>
+        </div>
+
+        <div id="verse-container" class="verse-container">
+            <!-- Hasil pencarian akan muncul di sini -->
+        </div>
+    </div>
+
+    <!-- Footer (Logo dan Nama) -->
+    <footer>
+        <div class="footer-logo">
+            <img src="logo_alkitab.png" alt="Logo Alkitab">
+            <p>ALKITAB GPDI SYALOM</p>
+        </div>
+    </footer>
+
+    <!-- Sticky Buttons -->
+    <div class="sticky-buttons">
+        <button onclick="showDailyReading()">Bacaan Harian</button>
+        <button onclick="searchByTheme()">Pencarian Berdasarkan Tema</button>
+    </div>
+
+    <!-- Mode Gelap/Terang Button -->
+    <button id="darkModeToggle" onclick="toggleDarkMode()">Mode Gelap/Terang</button>
+
+    <script>
+        // Dark mode toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        // Search Function
+        function searchVerse() {
+            const searchTerm = document.getElementById('search').value;
+            const verseContainer = document.getElementById('verse-container');
+
+            // Simulating a verse search
+            if (searchTerm) {
+                verseContainer.innerHTML = `<p style="background-color: #4CAF50; color: white; padding: 10px;">Hasil pencarian untuk: <b>${searchTerm}</b></p>`;
+            } else {
+                verseContainer.innerHTML = `<p>Tolong masukkan kata kunci untuk mencari ayat.</p>`;
+            }
+        }
+
+        // Placeholder functions for Bacaan Harian & Tema
+        function showDailyReading() {
+            alert('Menampilkan Bacaan Harian');
+        }
+
+        function searchByTheme() {
+            alert('Pencarian Berdasarkan Tema');
+        }
+    </script>
+</body>
+</html>
