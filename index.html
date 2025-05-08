@@ -4,107 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alkitab GPDI SYALOM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
+        /* --- CSS --- */
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        header {
-            text-align: center;
+        /* Tombol Mode Gelap */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
             background-color: #4CAF50;
-            padding: 20px;
-            color: white;
-        }
-
-        header h1 {
-            margin-top: 10px;
-        }
-
-        .search {
-            text-align: center;
-            padding: 30px;
-        }
-
-        .search h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .search input {
             padding: 10px;
-            font-size: 16px;
-            width: 60%;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        .search button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .search button:hover {
-            background-color: #45a049;
-        }
-
-        .result-box {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        .action-buttons {
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            width: 100%;
-            max-width: 1000px;
-            margin-top: 30px;
-            margin-bottom: 50px;
-            gap: 20px;
-            text-align: center;
-            flex-wrap: nowrap; /* Tombol dalam satu baris */
-        }
-
-        .button {
-            background-color: #4CAF50;
-            padding: 15px 25px;
-            border-radius: 10px;
-            width: auto;
-            min-width: 120px;
+            border-radius: 50%;
             cursor: pointer;
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
             transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .dark-mode-toggle i {
+            font-size: 30px; /* Ukuran ikon */
+            color: white;
+        }
+
+        .dark-mode-toggle:hover {
+            background-color: #45a049;
+        }
+
+        .dark-mode-toggle:active {
+            transform: scale(0.95);
+        }
+
+        /* Tema Gelap */
+        body.dark-mode {
+            background-color: #121212;
+            color: white;
+        }
+
+        .button-container.dark-mode {
+            background-color: #333;
+        }
+
+        .button.dark-mode {
+            background-color: #444;
+            color: white;
+        }
+
+        .separator.dark-mode {
+            background-color: #666;
+        }
+
+        /* Kontainer tombol */
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #4CAF50;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        .button {
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-align: center;
+            padding: 15px 25px;
+            cursor: pointer;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            flex: 1;
         }
 
-        .button img {
-            width: 40px;
-            height: 40px;
+        .button i {
+            font-size: 40px; /* Ukuran ikon */
             margin-bottom: 10px;
         }
 
         .button p {
             color: white;
             margin: 0;
+        }
+
+        .separator {
+            width: 1px;
+            height: 50px;
+            background-color: white;
+            margin: 0 10px;
         }
 
         .button:hover {
@@ -116,80 +109,99 @@
             transform: scale(0.95);
         }
 
-        footer {
+        /* Form Pencarian Ayat */
+        .search-container {
             text-align: center;
+            margin-top: 50px;
+        }
+
+        .search-container input {
+            padding: 10px;
+            width: 80%;
+            font-size: 18px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .search-container input:focus {
+            border-color: #45a049;
+        }
+
+        .result-box {
+            margin-top: 20px;
             padding: 20px;
             background-color: #4CAF50;
             color: white;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+            border-radius: 10px;
+            display: inline-block;
+            width: 80%;
         }
-
-        @media (max-width: 768px) {
-            .button {
-                width: 45%;
-            }
-        }
-
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <img src="logo.png" alt="Logo Alkitab GPDI SYALOM">
-            <h1>ALKITAB GPDI SYALOM</h1>
+
+    <!-- Tombol Mode Gelap -->
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- Form Pencarian Ayat -->
+    <div class="search-container">
+        <h1>Masukkan Ayat</h1>
+        <input type="text" id="search-input" placeholder="Cari ayat...">
+        <div id="result-box" class="result-box" style="display:none;"></div>
+    </div>
+
+    <!-- Tombol Pencarian Ayat, Bacaan Harian, Tema -->
+    <div class="button-container">
+        <div class="button" onclick="showModal('ayatModal')">
+            <i class="fas fa-search fa-2x"></i> <!-- Ikon Pencarian -->
+            <p>Pencarian Ayat</p>
         </div>
-    </header>
-
-    <main>
-        <section class="search">
-            <h2>Masukkan Ayat</h2>
-            <input type="text" id="searchInput" placeholder="Cari ayat...">
-            <button onclick="searchVerse()">Cari</button>
-            <div id="result" class="result-box">
-                <!-- Hasil pencarian ayat akan tampil di sini -->
-            </div>
-        </section>
-
-        <section class="action-buttons">
-            <div class="button" onclick="showModal('ayatModal')">
-                <img src="search-icon.png" alt="Pencarian Ayat">
-                <p>Pencarian Ayat</p>
-            </div>
-            <div class="button" onclick="showModal('bacaanModal')">
-                <img src="calendar-icon.png" alt="Bacaan Harian">
-                <p>Bacaan Harian</p>
-            </div>
-            <div class="button" onclick="showModal('temaModal')">
-                <img src="theme-icon.png" alt="Pencarian Berdasarkan Tema">
-                <p>Pencarian Berdasarkan Tema</p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>© 2025 Alkitab GPDI SYALOM</p>
-    </footer>
+        <div class="separator"></div>
+        <div class="button" onclick="showModal('bacaanModal')">
+            <i class="fas fa-calendar-alt fa-2x"></i> <!-- Ikon Kalender -->
+            <p>Bacaan Harian</p>
+        </div>
+        <div class="separator"></div>
+        <div class="button" onclick="showModal('temaModal')">
+            <i class="fas fa-tags fa-2x"></i> <!-- Ikon Tema -->
+            <p>Pencarian Berdasarkan Tema</p>
+        </div>
+    </div>
 
     <script>
-        // Fungsi untuk melakukan pencarian ayat
-        function searchVerse() {
-            var query = document.getElementById('searchInput').value;
-            var resultBox = document.getElementById('result');
+        // Toggle mode gelap/terang
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const buttons = document.querySelectorAll('.button');
+            const separators = document.querySelectorAll('.separator');
 
-            if (query === '') {
-                resultBox.innerHTML = 'Masukkan ayat untuk pencarian.';
-                return;
-            }
+            buttons.forEach(button => {
+                button.classList.toggle('dark-mode');
+            });
 
-            // Gantilah dengan pencarian yang sebenarnya (misalnya dari API atau database)
-            resultBox.innerHTML = `Hasil pencarian untuk: <strong>${query}</strong>`;
+            separators.forEach(separator => {
+                separator.classList.toggle('dark-mode');
+            });
         }
 
-        // Modal show function (Contoh)
-        function showModal(modalId) {
-            alert('Fitur ' + modalId + ' belum diimplementasikan.');
+        // Fungsi untuk menampilkan hasil pencarian
+        document.getElementById('search-input').addEventListener('input', function() {
+            const query = this.value.trim();
+            const resultBox = document.getElementById('result-box');
+            if (query !== '') {
+                resultBox.style.display = 'block';
+                resultBox.innerHTML = `Hasil pencarian: <strong>${query}</strong>`;
+            } else {
+                resultBox.style.display = 'none';
+            }
+        });
+
+        // Fungsi untuk modal (fungsionalitas masih harus ditambahkan)
+        function showModal(modalName) {
+            alert(modalName + ' clicked');
         }
     </script>
 </body>
