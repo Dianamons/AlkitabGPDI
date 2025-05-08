@@ -14,6 +14,22 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
+        /* Logo dan Judul */
+        .header {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .header img {
+            width: 100px; /* Ukuran logo */
+            height: 100px;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            color: #4CAF50;
+        }
+
         /* Tombol Mode Gelap */
         .dark-mode-toggle {
             position: fixed;
@@ -45,19 +61,6 @@
         body.dark-mode {
             background-color: #121212;
             color: white;
-        }
-
-        .button-container.dark-mode {
-            background-color: #333;
-        }
-
-        .button.dark-mode {
-            background-color: #444;
-            color: white;
-        }
-
-        .separator.dark-mode {
-            background-color: #666;
         }
 
         /* Kontainer tombol */
@@ -130,9 +133,63 @@
             display: inline-block;
             width: 80%;
         }
+
+        /* Tombol aplikasi sticky di bawah */
+        .sticky-buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            background-color: #4CAF50;
+            padding: 15px 0;
+            box-shadow: 0 -6px 10px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+        }
+
+        .sticky-buttons .button {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .sticky-buttons .button i {
+            font-size: 30px;
+            color: white;
+        }
+
+        .sticky-buttons .button p {
+            color: white;
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .button-container {
+                flex-direction: column;
+            }
+
+            .sticky-buttons {
+                flex-direction: column;
+                bottom: 0;
+            }
+
+            .sticky-buttons .button {
+                width: 100%;
+                padding: 12px;
+            }
+        }
     </style>
 </head>
 <body>
+
+    <!-- Logo dan Judul -->
+    <div class="header">
+        <img src="logo.png" alt="Logo Alkitab">
+        <h1>ALKITAB GPDI SYALOM</h1>
+    </div>
 
     <!-- Tombol Mode Gelap -->
     <div class="dark-mode-toggle" onclick="toggleDarkMode()">
@@ -159,6 +216,19 @@
         <div class="button" onclick="showModal('temaModal')">
             <i class="fas fa-tags fa-2x"></i> <!-- Ikon Tema -->
             <p>Pencarian Berdasarkan Tema</p>
+        </div>
+    </div>
+
+    <!-- Tombol Aplikasi Sticky -->
+    <div class="sticky-buttons">
+        <div class="button" onclick="showModal('ayatModal')">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="button" onclick="showModal('bacaanModal')">
+            <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="button" onclick="showModal('temaModal')">
+            <i class="fas fa-tags"></i>
         </div>
     </div>
 
