@@ -117,7 +117,7 @@
 
     /* Admin Panel */
     .admin-panel {
-      display: none;
+      display: none; /* Menyembunyikan panel admin secara default */
       position: fixed;
       top: 10%;
       left: 50%;
@@ -213,7 +213,11 @@
     // Fungsi untuk menampilkan panel admin
     function toggleAdminPanel() {
       const panel = document.getElementById('admin-panel');
-      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+      if (panel.style.display === 'none' || panel.style.display === '') {
+        panel.style.display = 'block';
+      } else {
+        panel.style.display = 'none';
+      }
     }
 
     // Fungsi untuk menyimpan pengumuman, jadwal, dan logo
