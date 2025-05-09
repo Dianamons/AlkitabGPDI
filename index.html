@@ -247,3 +247,44 @@
       localStorage.setItem('logo-gereja', logoUrl);
 
       // Update tampilan di halaman utama
+      document.querySelector('.pengumuman p').innerText = pengumuman;
+      document.querySelector('.jadwal ul').innerHTML = jadwal;
+      document.getElementById('logo-gereja').src = logoUrl;
+
+      alert("Perubahan berhasil disimpan!");
+    }
+
+    // Fungsi untuk scroll ke bagian tertentu
+    function scrollToSection(sectionClass) {
+      const section = document.querySelector(`.${sectionClass}`);
+      if (section) {
+        window.scrollTo({
+          top: section.offsetTop - 50,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    // Ambil logo dari localStorage saat halaman dimuat
+    window.addEventListener('load', () => {
+      const savedLogo = localStorage.getItem('logo-gereja');
+      if (savedLogo) {
+        document.getElementById('logo-gereja').src = savedLogo;
+      }
+    });
+
+    // Fungsi untuk upload gambar (Logo atau Galeri)
+    function uploadImage(event, type) {
+      const files = event.target.files;
+      const clientId = 'f15b5e7a0f3592b'; // Client ID Imgur
+
+      for (let file of files) {
+        const formData = new FormData();
+        formData.append('image', file);
+
+        fetch('https://api.imgur.com/3/image', {
+          method: 'POST',
+          headers: {
+            Authorization: 'Client-ID ' + clientId
+          },
+          body: form
