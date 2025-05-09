@@ -1,321 +1,249 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alkitab GPDI SYALOM</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, color 0.3s;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GPDI SYALOM</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #f7f7f7;
+    }
+    header {
+      background: #006400;
+      color: white;
+      text-align: center;
+      padding: 1em;
+      position: relative;
+    }
+    header img {
+      width: 160px;
+      height: 200px;
+      margin-bottom: 0.5px;
+    }
+    .content {
+      margin: 20px;
+    }
+    .section {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .pengumuman { border-left: 5px solid #3498db; }
+    .jadwal { border-left: 5px solid #2ecc71; }
+    .galeri { border-left: 5px solid #9b59b6; }
+    .donasi { border-left: 5px solid #e67e22; }
+    .section h2 { margin-top: 0; }
+    #galeri-gambar img {
+      width: 100px;
+      margin: 5px;
+      border-radius: 5px;
+    }
 
-        /* Header */
-        .header {
-            background-color: #f5f5f5;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+    /* Bottom Fixed Menu */
+    .bottom-menu {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #006400;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      z-index: 1000;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    }
+    .bottom-menu button {
+      background: none;
+      border: none;
+      color: white;
+      text-align: center;
+      flex-grow: 1;
+      font-size: 14px;
+      padding: 5px;
+      cursor: pointer;
+    }
+    .bottom-menu button i {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 3px;
+    }
 
-        .header h1 {
-            font-size: 28px;
-            color: #4CAF50;
-            margin-left: 10px;
-        }
+    /* Tombol Alkitab (Bulat dengan ikon di dalamnya) */
+    .alkitab-btn {
+      background-color: #28a745; /* Warna hijau untuk tombol */
+      color: white;
+      border: none;
+      border-radius: 50%; /* Membuat tombol bulat */
+      width: 60px; /* Ukuran tombol */
+      height: 60px; /* Ukuran tombol */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin-right: 20px; /* Jarak dengan tombol Donasi */
+    }
 
-        .header img {
-            width: 60px;  /* Ukuran logo */
-            height: 60px;
-        }
+    .alkitab-btn i {
+      font-size: 30px; /* Ukuran ikon buku */
+    }
 
-        .header .search-bar input {
-            padding: 10px;
-            width: 70%;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            outline: none;
-        }
+    /* Tombol Donasi */
+    .bottom-menu button {
+      background: none;
+      border: none;
+      color: white;
+      text-align: center;
+      flex-grow: 1;
+      font-size: 14px;
+      padding: 8px;
+      cursor: pointer;
+    }
 
-        .header .search-bar button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
+    .bottom-menu button i {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 3px;
+    }
 
-        .header .search-bar button:hover {
-            background-color: #45a049;
-        }
+    /* Admin Button - Pojok Kanan Atas */
+    .admin-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background-color: white;
+      color: #006400;
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      border: 1px solid #006400;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .admin-btn i {
+      margin-right: 5px;
+    }
 
-        /* Tombol Mode Gelap */
-        .dark-mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #4CAF50;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-            z-index: 10;
-        }
+    /* Admin Panel */
+    .admin-panel {
+      display: none;
+      position: fixed;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      width: 80%;
+      z-index: 1001;
+      border-radius: 10px;
+    }
 
-        .dark-mode-toggle i {
-            font-size: 30px;
-            color: white;
-        }
-
-        .dark-mode-toggle:hover {
-            background-color: #45a049;
-        }
-
-        /* Bottom Navigation - Tombol Horizontal */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #4CAF50;
-            display: flex;
-            justify-content: space-evenly;
-            padding: 15px 0;
-            box-shadow: 0 -6px 10px rgba(0, 0, 0, 0.15);
-            z-index: 10;
-        }
-
-        .bottom-nav .nav-item {
-            text-align: center;
-            flex: 1;
-            cursor: pointer;
-        }
-
-        .bottom-nav .nav-item i {
-            font-size: 30px;
-            color: white;
-        }
-
-        .bottom-nav .nav-item p {
-            color: white;
-            margin-top: 5px;
-        }
-
-        .bottom-nav .nav-item:hover {
-            background-color: #45a049;
-        }
-
-        .bottom-nav .nav-item:active {
-            transform: scale(0.95);
-        }
-
-        /* Form Pencarian Ayat */
-        .search-container {
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .search-container input {
-            padding: 10px;
-            width: 80%;
-            font-size: 18px;
-            border: 2px solid #4CAF50;
-            border-radius: 5px;
-            outline: none;
-        }
-
-        .search-container input:focus {
-            border-color: #45a049;
-        }
-
-        .search-container button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .search-container button:hover {
-            background-color: #45a049;
-        }
-
-        /* Hasil Pencarian Ayat */
-        .result-box {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 10px;
-            display: inline-block;
-            width: 80%;
-            text-align: center;
-            font-style: italic; /* Teks miring */
-        }
-
-        /* Tombol Kecil: Translate, Audio, Kembali */
-        .action-buttons {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            gap: 15px;
-        }
-
-        .action-buttons button {
-            background-color: #45a049;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .action-buttons button:hover {
-            background-color: #388e3c;
-        }
-
-        /* Tombol Kembali */
-        .back-button {
-            background-color: #f44336;
-        }
-
-        .back-button:hover {
-            background-color: #e53935;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 600px) {
-            .bottom-nav {
-                flex-direction: column;
-                padding: 20px 0;
-            }
-
-            .bottom-nav .nav-item {
-                width: 100%;
-                padding: 12px;
-            }
-
-            .header img {
-                width: 50px;
-                height: 50px;
-            }
-
-            .search-container input {
-                width: 90%;
-            }
-        }
-    </style>
+    /* Media query untuk menyesuaikan di mobile */
+    @media (max-width: 600px) {
+      header h1 { font-size: 20px; }
+      .bottom-menu button {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Logo dan Judul -->
-    <div class="header">
-        <img src="logo.png" alt="Logo Alkitab">
-        <h1>ALKITAB GPDI SYALOM</h1>
+  <!-- Header -->
+  <header>
+    <img src="https://i.imgur.com/placeholder.png" alt="Logo Gereja" id="logo-gereja"/>
+    <h1>GPDI SYALOM</h1>
+    <p>JLN. PUTRI AYU KM 27, DESA MAMUGO, ROKAN HILIR</p>
+  </header>
+
+  <!-- Konten utama -->
+  <div class="content">
+    <div class="section pengumuman">
+      <h2>Pengumuman</h2>
+      <p>Selamat datang di website resmi GPDI SYALOM. Tuhan Yesus memberkati!</p>
     </div>
-
-    <!-- Tombol Mode Gelap -->
-    <div class="dark-mode-toggle" onclick="toggleDarkMode()">
-        <i class="fas fa-moon"></i>
+    <div class="section jadwal">
+      <h2>Jadwal Ibadah</h2>
+      <ul>
+        <li>Minggu, 09:00 WIB - Ibadah Raya</li>
+        <li>Rabu, 18:00 WIB - Ibadah Doa</li>
+      </ul>
     </div>
-
-    <!-- Form Pencarian Ayat -->
-    <div class="search-container">
-        <h2>Masukkan Ayat</h2>
-        <input type="text" id="search-input" placeholder="Cari ayat...">
-        <button onclick="searchVerse()">Cari</button>
+    <div class="section galeri">
+      <h2>Galeri Kegiatan</h2>
+      <div id="galeri-gambar"></div>
     </div>
-
-    <!-- Hasil Pencarian Ayat -->
-    <div id="result-box" class="result-box" style="display: none;">
-        <!-- Hasil ayat akan muncul di sini -->
+    <div class="section donasi">
+      <h2>Donasi</h2>
+      <p>Silakan transfer ke rekening BCA 123456789 a/n GPDI SYALOM atau hubungi pengurus gereja.</p>
     </div>
+  </div>
 
-    <!-- Tombol Aksi (Translate, Audio, Kembali) -->
-    <div id="action-buttons" class="action-buttons" style="display: none;">
-        <button onclick="translate()">Translate</button>
-        <button onclick="playAudio()">Audio</button>
-        <button class="back-button" onclick="goBack()">Kembali</button>
-    </div>
+  <!-- Bottom Fixed Menu -->
+  <div class="bottom-menu">
+    <button onclick="scrollToSection('pengumuman')"><i class="fas fa-bullhorn"></i><br>Pengumuman</button>
+    <button onclick="scrollToSection('jadwal')"><i class="fas fa-calendar-alt"></i><br>Jadwal</button>
+    <button onclick="scrollToSection('galeri')"><i class="fas fa-images"></i><br>Galeri</button>
+    
+    <!-- Tombol Alkitab (Bulat dengan ikon Buku) -->
+    <button class="alkitab-btn" onclick="window.location.href='alkitab.html'">
+      <i class="fas fa-book"></i> Alkitab
+    </button>
 
-    <!-- Bottom Navigation (Tombol Sejajar Horizontal) -->
-    <div class="bottom-nav">
-        <div class="nav-item" onclick="showModal('pengumuman')">
-            <i class="fas fa-bullhorn"></i>
-            <p>Pengumuman</p>
-        </div>
-        <div class="nav-item" onclick="showModal('jadwal')">
-            <i class="fas fa-calendar-alt"></i>
-            <p>Jadwal</p>
-        </div>
-        <div class="nav-item" onclick="showModal('galeri')">
-            <i class="fas fa-images"></i>
-            <p>Galeri</p>
-        </div>
-        <div class="nav-item" onclick="showModal('donasi')">
-            <i class="fas fa-hand-holding-heart"></i>
-            <p>Donasi</p>
-        </div>
-    </div>
+    <button onclick="scrollToSection('donasi')"><i class="fas fa-hand-holding-heart"></i><br>Donasi</button>
+  </div>
 
-    <script>
-        // Toggle mode gelap/terang
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-        }
+  <!-- Admin Button -->
+  <div class="admin-btn" onclick="toggleAdminPanel()">
+    <i class="fas fa-user-cog"></i> Admin
+  </div>
 
-        // Fungsi untuk modal (fungsionalitas masih harus ditambahkan)
-        function showModal(modalName) {
-            alert(modalName + ' clicked');
-        }
+  <!-- Admin Panel -->
+  <div class="admin-panel" id="admin-panel">
+    <h2>Admin Panel</h2>
+    <label>Logo URL:</label>
+    <input type="text" id="logo-input-url" placeholder="Masukkan URL Logo Gereja" style="width: 100%;"><br><br>
 
-        // Fungsi untuk menampilkan hasil pencarian
-        function searchVerse() {
-            var query = document.getElementById('search-input').value.trim();
-            var resultBox = document.getElementById('result-box');
-            var actionButtons = document.getElementById('action-buttons');
-            
-            if (query !== '') {
-                // Menampilkan hasil pencarian
-                resultBox.style.display = 'block';
-                resultBox.innerHTML = `Hasil pencarian: <strong>${query}</strong>`;
+    <label>Pengumuman:</label>
+    <textarea id="pengumuman-input" placeholder="Masukkan pengumuman..." rows="4" style="width: 100%;"></textarea><br><br>
 
-                // Menampilkan tombol aksi (translate, audio, kembali)
-                actionButtons.style.display = 'flex';
-            } else {
-                resultBox.style.display = 'none';
-                actionButtons.style.display = 'none';
-            }
-        }
+    <label>Jadwal Ibadah:</label>
+    <textarea id="jadwal-input" placeholder="Masukkan jadwal ibadah..." rows="4" style="width: 100%;"></textarea><br><br>
 
-        // Fungsi untuk translate (placeholder)
-        function translate() {
-            alert('Fitur Translate akan segera hadir!');
-        }
+    <label>Upload Foto Galeri:</label>
+    <input type="file" multiple id="galeri-input" onchange="uploadImage(event, 'galeri')" /><br><br>
 
-        // Fungsi untuk audio (placeholder)
-        function playAudio() {
-            alert('Fitur Audio akan segera hadir!');
-        }
+    <button onclick="saveContent()">Simpan Perubahan</button>
+  </div>
 
-        // Fungsi untuk kembali ke halaman awal
-        function goBack() {
-            document.getElementById('result-box').style.display = 'none';
-            document.getElementById('action-buttons').style.display = 'none';
-            document.getElementById('search-input').value = ''; // Menghapus input pencarian
-        }
-    </script>
+  <!-- Script -->
+  <script>
+    // Fungsi untuk menampilkan panel admin
+    function toggleAdminPanel() {
+      const panel = document.getElementById('admin-panel');
+      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    }
 
-</body>
-</html>
+    // Fungsi untuk menyimpan pengumuman, jadwal, dan logo
+    function saveContent() {
+      const pengumuman = document.getElementById('pengumuman-input').value;
+      const jadwal = document.getElementById('jadwal-input').value;
+      const logoUrl = document.getElementById('logo-input-url').value;
+
+      // Simpan pengumuman, jadwal, dan logo URL di localStorage
+      localStorage.setItem('pengumuman', pengumuman);
+      localStorage.setItem('jadwal', jadwal);
+      localStorage.setItem('logo-gereja', logoUrl);
+
+      // Update tampilan di halaman utama
