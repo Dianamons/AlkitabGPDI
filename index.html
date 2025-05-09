@@ -62,7 +62,7 @@
             color: white;
         }
 
-        /* Bottom Navigation */
+        /* Bottom Navigation - Tombol Horizontal */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -71,26 +71,20 @@
             background-color: #4CAF50;
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            padding: 15px 0;
             box-shadow: 0 -6px 10px rgba(0, 0, 0, 0.15);
             z-index: 10;
         }
 
         .bottom-nav .nav-item {
-            flex: 1;
             text-align: center;
-            padding: 10px;
+            flex: 1;
             cursor: pointer;
-            transition: background-color 0.3s ease;
         }
 
         .bottom-nav .nav-item i {
-            font-size: 25px;
+            font-size: 30px;
             color: white;
-        }
-
-        .bottom-nav .nav-item:hover {
-            background-color: #45a049;
         }
 
         .bottom-nav .nav-item p {
@@ -98,16 +92,19 @@
             margin-top: 5px;
         }
 
-        /* Tombol Mode Gelap */
-        .bottom-nav .nav-item:last-child {
-            padding-right: 20px;
-            padding-left: 20px;
+        .bottom-nav .nav-item:hover {
+            background-color: #45a049;
+        }
+
+        .bottom-nav .nav-item:active {
+            transform: scale(0.95);
         }
 
         /* Responsive Design */
         @media (max-width: 600px) {
             .bottom-nav {
                 flex-direction: column;
+                padding: 20px 0;
             }
 
             .bottom-nav .nav-item {
@@ -130,7 +127,7 @@
         <i class="fas fa-moon"></i>
     </div>
 
-    <!-- Bottom Navigation -->
+    <!-- Bottom Navigation (Tombol Sejajar Horizontal) -->
     <div class="bottom-nav">
         <div class="nav-item" onclick="showModal('pengumuman')">
             <i class="fas fa-bullhorn"></i>
