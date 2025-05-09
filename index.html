@@ -6,6 +6,7 @@
     <title>Alkitab GPDI SYALOM</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* --- CSS --- */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -17,6 +18,9 @@
         .header {
             text-align: center;
             margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
         }
 
         .header img {
@@ -26,7 +30,7 @@
 
         .header h1 {
             font-size: 30px;
-            color: #4CAF50;
+            margin-top: 10px;
         }
 
         /* Tombol Mode Gelap */
@@ -70,7 +74,7 @@
             width: 100%;
             background-color: #4CAF50;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-evenly;
             padding: 15px 0;
             box-shadow: 0 -6px 10px rgba(0, 0, 0, 0.15);
             z-index: 10;
@@ -100,6 +104,35 @@
             transform: scale(0.95);
         }
 
+        /* Form Pencarian Ayat */
+        .search-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .search-container input {
+            padding: 10px;
+            width: 80%;
+            font-size: 18px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .search-container input:focus {
+            border-color: #45a049;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 10px;
+            display: inline-block;
+            width: 80%;
+        }
+
         /* Responsive Design */
         @media (max-width: 600px) {
             .bottom-nav {
@@ -125,6 +158,13 @@
     <!-- Tombol Mode Gelap -->
     <div class="dark-mode-toggle" onclick="toggleDarkMode()">
         <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- Form Pencarian Ayat -->
+    <div class="search-container">
+        <h1>Masukkan Ayat</h1>
+        <input type="text" id="search-input" placeholder="Cari ayat...">
+        <div id="result-box" class="result-box" style="display:none;"></div>
     </div>
 
     <!-- Bottom Navigation (Tombol Sejajar Horizontal) -->
@@ -157,6 +197,18 @@
         function showModal(modalName) {
             alert(modalName + ' clicked');
         }
+
+        // Fungsi untuk menampilkan hasil pencarian
+        document.getElementById('search-input').addEventListener('input', function() {
+            const query = this.value.trim();
+            const resultBox = document.getElementById('result-box');
+            if (query !== '') {
+                resultBox.style.display = 'block';
+                resultBox.innerHTML = `Hasil pencarian: <strong>${query}</strong>`;
+            } else {
+                resultBox.style.display = 'none';
+            }
+        });
     </script>
 
 </body>
