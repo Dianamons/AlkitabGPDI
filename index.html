@@ -73,43 +73,25 @@
       margin-bottom: 3px;
     }
 
-    /* Tombol Alkitab (Bulat dengan ikon di dalamnya) */
+    /* Tombol Alkitab di pojok kiri atas */
     .alkitab-btn {
-      background-color: #28a745; /* Warna hijau untuk tombol */
-      color: white;
-      border: none;
-      border-radius: 50%; /* Membuat tombol bulat */
-      width: 60px; /* Ukuran tombol */
-      height: 60px; /* Ukuran tombol */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: white; /* Warna latar tombol */
+      color: #006400; /* Teks berwarna hijau */
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      border: 1px solid #006400; /* Border hijau */
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      margin-right: 20px; /* Jarak dengan tombol Donasi */
+      z-index: 1000;
     }
 
     .alkitab-btn i {
-      font-size: 30px; /* Ukuran ikon buku */
-    }
-
-    /* Tombol Donasi */
-    .bottom-menu button {
-      background: none;
-      border: none;
-      color: white;
-      text-align: center;
-      flex-grow: 1;
-      font-size: 14px;
-      padding: 8px;
-      cursor: pointer;
-    }
-
-    .bottom-menu button i {
-      display: block;
-      font-size: 18px;
-      margin-bottom: 3px;
+      margin-right: 5px; /* Memberi jarak antara ikon dan teks */
     }
 
     /* Admin Button - Pojok Kanan Atas */
@@ -190,17 +172,16 @@
     </div>
   </div>
 
+  <!-- Tombol Alkitab di pojok kiri atas -->
+  <button class="alkitab-btn" onclick="window.location.href='alkitab.html'">
+    <i class="fas fa-book"></i> Alkitab
+  </button>
+
   <!-- Bottom Fixed Menu -->
   <div class="bottom-menu">
     <button onclick="scrollToSection('pengumuman')"><i class="fas fa-bullhorn"></i><br>Pengumuman</button>
     <button onclick="scrollToSection('jadwal')"><i class="fas fa-calendar-alt"></i><br>Jadwal</button>
     <button onclick="scrollToSection('galeri')"><i class="fas fa-images"></i><br>Galeri</button>
-    
-    <!-- Tombol Alkitab (Bulat dengan ikon Buku) -->
-    <button class="alkitab-btn" onclick="window.location.href='alkitab.html'">
-      <i class="fas fa-book"></i> Alkitab
-    </button>
-
     <button onclick="scrollToSection('donasi')"><i class="fas fa-hand-holding-heart"></i><br>Donasi</button>
   </div>
 
@@ -287,4 +268,23 @@
           headers: {
             Authorization: 'Client-ID ' + clientId
           },
-          body: form
+          body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (type === 'logo') {
+            document.getElementById('logo-gereja').src = data.data.link;
+            localStorage.setItem('logo-gereja', data.data.link);
+          } else if (type === 'galeri') {
+            const img = document.createElement('img');
+            img.src = data.data.link;
+            document.getElementById('galeri-gambar').appendChild(img);
+          }
+        })
+        .catch(err => console.error(err));
+      }
+    }
+  </script>
+
+</body>
+</html>
