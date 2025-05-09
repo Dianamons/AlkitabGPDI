@@ -6,11 +6,11 @@
     <title>Alkitab GPDI SYALOM</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* --- CSS --- */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f4;
             transition: background-color 0.3s, color 0.3s;
         }
 
@@ -24,7 +24,7 @@
         }
 
         .header img {
-            width: 100px; /* Ukuran logo */
+            width: 100px;
             height: 100px;
         }
 
@@ -33,78 +33,7 @@
             margin-top: 10px;
         }
 
-        /* Tombol Mode Gelap */
-        .dark-mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #4CAF50;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .dark-mode-toggle i {
-            font-size: 30px; /* Ukuran ikon */
-            color: white;
-        }
-
-        .dark-mode-toggle:hover {
-            background-color: #45a049;
-        }
-
-        .dark-mode-toggle:active {
-            transform: scale(0.95);
-        }
-
-        /* Tema Gelap */
-        body.dark-mode {
-            background-color: #121212;
-            color: white;
-        }
-
-        /* Bottom Navigation - Tombol Horizontal */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #4CAF50;
-            display: flex;
-            justify-content: space-evenly;
-            padding: 15px 0;
-            box-shadow: 0 -6px 10px rgba(0, 0, 0, 0.15);
-            z-index: 10;
-        }
-
-        .bottom-nav .nav-item {
-            text-align: center;
-            flex: 1;
-            cursor: pointer;
-        }
-
-        .bottom-nav .nav-item i {
-            font-size: 30px;
-            color: white;
-        }
-
-        .bottom-nav .nav-item p {
-            color: white;
-            margin-top: 5px;
-        }
-
-        .bottom-nav .nav-item:hover {
-            background-color: #45a049;
-        }
-
-        .bottom-nav .nav-item:active {
-            transform: scale(0.95);
-        }
-
-        /* Form Pencarian Ayat */
+        /* Pencarian Ayat */
         .search-container {
             text-align: center;
             margin-top: 50px;
@@ -123,27 +52,62 @@
             border-color: #45a049;
         }
 
-        .result-box {
+        .search-container button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
             margin-top: 20px;
+        }
+
+        .search-container button:hover {
+            background-color: #45a049;
+        }
+
+        /* Hasil Pencarian Ayat */
+        .result-box {
+            margin-top: 30px;
             padding: 20px;
             background-color: #4CAF50;
             color: white;
             border-radius: 10px;
             display: inline-block;
             width: 80%;
+            text-align: center;
+            font-style: italic; /* Teks miring */
         }
 
-        /* Responsive Design */
-        @media (max-width: 600px) {
-            .bottom-nav {
-                flex-direction: column;
-                padding: 20px 0;
-            }
+        /* Tombol Kecil: Translate, Audio, Kembali */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 15px;
+        }
 
-            .bottom-nav .nav-item {
-                width: 100%;
-                padding: 12px;
-            }
+        .action-buttons button {
+            background-color: #45a049;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .action-buttons button:hover {
+            background-color: #388e3c;
+        }
+
+        /* Tombol Kembali */
+        .back-button {
+            background-color: #f44336;
+        }
+
+        .back-button:hover {
+            background-color: #e53935;
         }
     </style>
 </head>
@@ -155,60 +119,61 @@
         <h1>ALKITAB GPDI SYALOM</h1>
     </div>
 
-    <!-- Tombol Mode Gelap -->
-    <div class="dark-mode-toggle" onclick="toggleDarkMode()">
-        <i class="fas fa-moon"></i>
-    </div>
-
     <!-- Form Pencarian Ayat -->
     <div class="search-container">
-        <h1>Masukkan Ayat</h1>
+        <h2>Masukkan Ayat</h2>
         <input type="text" id="search-input" placeholder="Cari ayat...">
-        <div id="result-box" class="result-box" style="display:none;"></div>
+        <button onclick="searchVerse()">Cari</button>
     </div>
 
-    <!-- Bottom Navigation (Tombol Sejajar Horizontal) -->
-    <div class="bottom-nav">
-        <div class="nav-item" onclick="showModal('pengumuman')">
-            <i class="fas fa-bullhorn"></i>
-            <p>Pengumuman</p>
-        </div>
-        <div class="nav-item" onclick="showModal('jadwal')">
-            <i class="fas fa-calendar-alt"></i>
-            <p>Jadwal</p>
-        </div>
-        <div class="nav-item" onclick="showModal('galeri')">
-            <i class="fas fa-images"></i>
-            <p>Galeri</p>
-        </div>
-        <div class="nav-item" onclick="showModal('donasi')">
-            <i class="fas fa-hand-holding-heart"></i>
-            <p>Donasi</p>
-        </div>
+    <!-- Hasil Pencarian Ayat -->
+    <div id="result-box" class="result-box" style="display: none;">
+        <!-- Hasil ayat akan muncul di sini -->
+    </div>
+
+    <!-- Tombol Aksi (Translate, Audio, Kembali) -->
+    <div id="action-buttons" class="action-buttons" style="display: none;">
+        <button onclick="translate()">Translate</button>
+        <button onclick="playAudio()">Audio</button>
+        <button class="back-button" onclick="goBack()">Kembali</button>
     </div>
 
     <script>
-        // Toggle mode gelap/terang
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-        }
-
-        // Fungsi untuk modal (fungsionalitas masih harus ditambahkan)
-        function showModal(modalName) {
-            alert(modalName + ' clicked');
-        }
-
-        // Fungsi untuk menampilkan hasil pencarian
-        document.getElementById('search-input').addEventListener('input', function() {
-            const query = this.value.trim();
-            const resultBox = document.getElementById('result-box');
+        // Fungsi untuk pencarian ayat
+        function searchVerse() {
+            var query = document.getElementById('search-input').value.trim();
+            var resultBox = document.getElementById('result-box');
+            var actionButtons = document.getElementById('action-buttons');
+            
             if (query !== '') {
+                // Menampilkan hasil pencarian
                 resultBox.style.display = 'block';
                 resultBox.innerHTML = `Hasil pencarian: <strong>${query}</strong>`;
+
+                // Menampilkan tombol aksi (translate, audio, kembali)
+                actionButtons.style.display = 'flex';
             } else {
                 resultBox.style.display = 'none';
+                actionButtons.style.display = 'none';
             }
-        });
+        }
+
+        // Fungsi untuk translate (placeholder)
+        function translate() {
+            alert('Fitur Translate akan segera hadir!');
+        }
+
+        // Fungsi untuk audio (placeholder)
+        function playAudio() {
+            alert('Fitur Audio akan segera hadir!');
+        }
+
+        // Fungsi untuk kembali ke halaman awal
+        function goBack() {
+            document.getElementById('result-box').style.display = 'none';
+            document.getElementById('action-buttons').style.display = 'none';
+            document.getElementById('search-input').value = ''; // Menghapus input pencarian
+        }
     </script>
 
 </body>
