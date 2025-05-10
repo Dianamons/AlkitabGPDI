@@ -44,7 +44,6 @@
       border-radius: 5px;
     }
 
-    /* Bottom Fixed Menu */
     .bottom-menu {
       position: fixed;
       bottom: 0;
@@ -73,28 +72,26 @@
       margin-bottom: 3px;
     }
 
-    /* Tombol Alkitab di pojok kiri atas */
     .alkitab-btn {
       position: fixed;
       top: 0px;
       left: 0px;
-      background-color: white; /* Warna latar tombol */
-      color: #006400; /* Teks berwarna hijau */
+      background-color: white;
+      color: #006400;
       padding: 10px 16px;
       border-radius: 5px;
       font-size: 14px;
       font-weight: bold;
-      border: 1px solid #006400; /* Border hijau */
+      border: 1px solid #006400;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       cursor: pointer;
       z-index: 1000;
     }
 
     .alkitab-btn i {
-      margin-right: 5px; /* Memberi jarak antara ikon dan teks */
+      margin-right: 5px;
     }
 
-    /* Admin Button - Pojok Kanan Atas */
     .admin-btn {
       position: fixed;
       top: 0px;
@@ -115,9 +112,8 @@
       margin-right: 5px;
     }
 
-    /* Admin Panel */
     .admin-panel {
-      display: none; /* Menyembunyikan panel admin secara default */
+      display: none;
       position: fixed;
       top: 10%;
       left: 50%;
@@ -130,7 +126,6 @@
       border-radius: 10px;
     }
 
-    /* Media query untuk menyesuaikan di mobile */
     @media (max-width: 600px) {
       header h1 { font-size: 20px; }
       .bottom-menu button {
@@ -142,22 +137,20 @@
 </head>
 <body>
 
-  <!-- Header -->
   <header>
     <img src="https://i.imgur.com/placeholder.png" alt="Logo Gereja" id="logo-gereja"/>
     <h1>GPDI SYALOM</h1>
     <p>JLN. PUTRI AYU KM 27, DESA MAMUGO, ROKAN HILIR</p>
   </header>
 
-  <!-- Konten utama -->
   <div class="content">
     <div class="section pengumuman">
       <h2>Pengumuman</h2>
-      <p>Selamat datang di website resmi GPDI SYALOM. Tuhan Yesus memberkati!</p>
+      <p id="pengumuman-teks">Selamat datang di website resmi GPDI SYALOM. Tuhan Yesus memberkati!</p>
     </div>
     <div class="section jadwal">
       <h2>Jadwal Ibadah</h2>
-      <ul>
+      <ul id="jadwal-list">
         <li>Minggu, 09:00 WIB - Ibadah Raya</li>
         <li>Rabu, 18:00 WIB - Ibadah Doa</li>
       </ul>
@@ -172,12 +165,10 @@
     </div>
   </div>
 
-  <!-- Tombol Alkitab di pojok kiri atas -->
   <button class="alkitab-btn" onclick="window.location.href='alkitab.html'">
     <i class="fas fa-book"></i> Alkitab
   </button>
 
-  <!-- Bottom Fixed Menu -->
   <div class="bottom-menu">
     <button onclick="scrollToSection('pengumuman')"><i class="fas fa-bullhorn"></i><br>Pengumuman</button>
     <button onclick="scrollToSection('jadwal')"><i class="fas fa-calendar-alt"></i><br>Jadwal</button>
@@ -185,12 +176,10 @@
     <button onclick="scrollToSection('donasi')"><i class="fas fa-hand-holding-heart"></i><br>Donasi</button>
   </div>
 
-  <!-- Admin Button -->
   <div class="admin-btn" onclick="toggleAdminPanel()">
     <i class="fas fa-user-cog"></i> Admin
   </div>
 
-  <!-- Admin Panel -->
   <div class="admin-panel" id="admin-panel">
     <h2>Admin Panel</h2>
     <label>Logo URL:</label>
@@ -199,69 +188,47 @@
     <label>Pengumuman:</label>
     <textarea id="pengumuman-input" placeholder="Masukkan pengumuman..." rows="4" style="width: 100%;"></textarea><br><br>
 
-    <label>Jadwal Ibadah:</label>
+    <label>Jadwal Ibadah (HTML List):</label>
     <textarea id="jadwal-input" placeholder="Masukkan jadwal ibadah..." rows="4" style="width: 100%;"></textarea><br><br>
 
     <label>Upload Foto Galeri:</label>
-    <input type="file" multiple id="galeri-input" onchange="uploadImage(event, 'galeri')" /><br><br>
+    <input type="file" multiple id="galeri-input" onchange="uploadImage(event)" /><br><br>
 
     <button onclick="saveContent()">Simpan Perubahan</button>
   </div>
 
-  <!-- Script -->
   <script>
-    // Fungsi untuk menampilkan panel admin
     function toggleAdminPanel() {
       const panel = document.getElementById('admin-panel');
-      if (panel.style.display === 'none' || panel.style.display === '') {
-        panel.style.display = 'block';
-      } else {
-        panel.style.display = 'none';
+      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function scrollToSection(sectionClass) {
+      const section = document.querySelector(`.${sectionClass}`);
+      if (section) {
+        window.scrollTo({ top: section.offsetTop - 50, behavior: 'smooth' });
       }
     }
 
-    // Fungsi untuk menyimpan pengumuman, jadwal, dan logo
     function saveContent() {
       const pengumuman = document.getElementById('pengumuman-input').value;
       const jadwal = document.getElementById('jadwal-input').value;
       const logoUrl = document.getElementById('logo-input-url').value;
 
-      // Simpan pengumuman, jadwal, dan logo URL di localStorage
       localStorage.setItem('pengumuman', pengumuman);
       localStorage.setItem('jadwal', jadwal);
       localStorage.setItem('logo-gereja', logoUrl);
 
-      // Update tampilan di halaman utama
-      document.querySelector('.pengumuman p').innerText = pengumuman;
-      document.querySelector('.jadwal ul').innerHTML = jadwal;
+      document.getElementById('pengumuman-teks').innerText = pengumuman;
+      document.getElementById('jadwal-list').innerHTML = jadwal;
       document.getElementById('logo-gereja').src = logoUrl;
 
       alert("Perubahan berhasil disimpan!");
     }
 
-    // Fungsi untuk scroll ke bagian tertentu
-    function scrollToSection(sectionClass) {
-      const section = document.querySelector(`.${sectionClass}`);
-      if (section) {
-        window.scrollTo({
-          top: section.offsetTop - 50,
-          behavior: 'smooth'
-        });
-      }
-    }
-
-    // Ambil logo dari localStorage saat halaman dimuat
-    window.addEventListener('load', () => {
-      const savedLogo = localStorage.getItem('logo-gereja');
-      if (savedLogo) {
-        document.getElementById('logo-gereja').src = savedLogo;
-      }
-    });
-
-    // Fungsi untuk upload gambar (Logo atau Galeri)
-    function uploadImage(event, type) {
+    function uploadImage(event) {
       const files = event.target.files;
-      const clientId = 'f15b5e7a0f3592b'; // Client ID Imgur
+      const clientId = 'f15b5e7a0f3592b';
 
       for (let file of files) {
         const formData = new FormData();
@@ -269,26 +236,40 @@
 
         fetch('https://api.imgur.com/3/image', {
           method: 'POST',
-          headers: {
-            Authorization: 'Client-ID ' + clientId
-          },
+          headers: { Authorization: 'Client-ID ' + clientId },
           body: formData
         })
-        .then(res => res.json())
+        .then(response => response.json())
         .then(data => {
-          if (type === 'logo') {
-            document.getElementById('logo-gereja').src = data.data.link;
-            localStorage.setItem('logo-gereja', data.data.link);
-          } else if (type === 'galeri') {
+          if (data.success) {
             const img = document.createElement('img');
             img.src = data.data.link;
             document.getElementById('galeri-gambar').appendChild(img);
+
+            let galeri = JSON.parse(localStorage.getItem('galeri') || '[]');
+            galeri.push(data.data.link);
+            localStorage.setItem('galeri', JSON.stringify(galeri));
           }
         })
-        .catch(err => console.error(err));
+        .catch(error => console.error('Upload gagal:', error));
       }
     }
-  </script>
 
+    window.addEventListener('load', () => {
+      const savedLogo = localStorage.getItem('logo-gereja');
+      const savedPengumuman = localStorage.getItem('pengumuman');
+      const savedJadwal = localStorage.getItem('jadwal');
+      const savedGaleri = JSON.parse(localStorage.getItem('galeri') || '[]');
+
+      if (savedLogo) document.getElementById('logo-gereja').src = savedLogo;
+      if (savedPengumuman) document.getElementById('pengumuman-teks').innerText = savedPengumuman;
+      if (savedJadwal) document.getElementById('jadwal-list').innerHTML = savedJadwal;
+      savedGaleri.forEach(url => {
+        const img = document.createElement('img');
+        img.src = url;
+        document.getElementById('galeri-gambar').appendChild(img);
+      });
+    });
+  </script>
 </body>
 </html>
