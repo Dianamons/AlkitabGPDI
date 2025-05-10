@@ -6,13 +6,29 @@
   <title>GPDI SYALOM</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
+    :root {
+      --bg: #f7f7f7;
+      --text: #000;
+      --section-bg: #fff;
+      --green: #006400;
+    }
+
+    body.dark {
+      --bg: #121212;
+      --text: #eee;
+      --section-bg: #1f1f1f;
+    }
+
     body {
       font-family: Arial, sans-serif;
       margin: 0; padding: 0;
-      background: #f7f7f7;
+      background: var(--bg);
+      color: var(--text);
+      transition: 0.3s;
     }
+
     header {
-      background: #006400;
+      background: var(--green);
       color: white;
       text-align: center;
       padding: 1em;
@@ -23,21 +39,23 @@
       height: 200px;
       margin-bottom: 0.5px;
     }
+
     .content {
       margin: 20px;
     }
     .section {
-      background: white;
+      background: var(--section-bg);
       padding: 15px;
       border-radius: 8px;
       margin-bottom: 20px;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
+
     .pengumuman { border-left: 5px solid #3498db; }
     .jadwal { border-left: 5px solid #2ecc71; }
     .galeri { border-left: 5px solid #9b59b6; }
     .donasi { border-left: 5px solid #e67e22; }
-    .section h2 { margin-top: 0; }
+
     #galeri-gambar img {
       width: 100px;
       margin: 5px;
@@ -49,76 +67,48 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      background: #006400;
+      background: var(--green);
       display: flex;
       justify-content: space-around;
       padding: 10px 0;
       z-index: 1000;
-      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
     }
+
     .bottom-menu button {
       background: none;
       border: none;
       color: white;
-      text-align: center;
       flex-grow: 1;
       font-size: 14px;
       padding: 5px;
       cursor: pointer;
     }
-    .bottom-menu button i {
-      display: block;
-      font-size: 18px;
-      margin-bottom: 3px;
-    }
 
-    .alkitab-btn {
+    .alkitab-btn, .admin-btn, .darkmode-btn {
       position: fixed;
-      top: 0px;
-      left: 0px;
       background-color: white;
-      color: #006400;
+      color: var(--green);
       padding: 10px 16px;
       border-radius: 5px;
       font-size: 14px;
       font-weight: bold;
-      border: 1px solid #006400;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border: 1px solid var(--green);
       cursor: pointer;
       z-index: 1000;
     }
 
-    .alkitab-btn i {
-      margin-right: 5px;
-    }
+    .alkitab-btn { top: 0; left: 0; }
+    .darkmode-btn { top: 0; left: 130px; }
+    .admin-btn { top: 0; right: 0; }
 
-    .admin-btn {
-      position: fixed;
-      top: 0px;
-      right: 0px;
-      background-color: white;
-      color: #006400;
-      padding: 10px 16px;
-      border-radius: 5px;
-      font-size: 14px;
-      cursor: pointer;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      border: 1px solid #006400;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .admin-btn i {
-      margin-right: 5px;
-    }
-
-    .admin-panel {
+    .admin-panel, .login-panel {
       display: none;
       position: fixed;
       top: 10%;
       left: 50%;
       transform: translateX(-50%);
-      background-color: white;
+      background-color: var(--section-bg);
+      color: var(--text);
       padding: 20px;
       box-shadow: 0 0 10px rgba(0,0,0,0.2);
       width: 80%;
@@ -128,10 +118,6 @@
 
     @media (max-width: 600px) {
       header h1 { font-size: 20px; }
-      .bottom-menu button {
-        font-size: 14px;
-        padding: 8px;
-      }
     }
   </style>
 </head>
@@ -146,7 +132,7 @@
   <div class="content">
     <div class="section pengumuman">
       <h2>Pengumuman</h2>
-      <p id="pengumuman-teks">Selamat datang di website resmi GPDI SYALOM. Tuhan Yesus memberkati!</p>
+      <p id="pengumuman-teks">Selamat datang di website resmi GPDI SYALOM.</p>
     </div>
     <div class="section jadwal">
       <h2>Jadwal Ibadah</h2>
@@ -161,13 +147,13 @@
     </div>
     <div class="section donasi">
       <h2>Donasi</h2>
-      <p>Silakan transfer ke rekening BCA 123456789 a/n GPDI SYALOM atau hubungi pengurus gereja.</p>
+      <p>Silakan transfer ke rekening BCA 123456789 a/n GPDI SYALOM.</p>
     </div>
   </div>
 
-  <button class="alkitab-btn" onclick="window.location.href='alkitab.html'">
-    <i class="fas fa-book"></i> Alkitab
-  </button>
+  <button class="alkitab-btn" onclick="window.location.href='alkitab.html'">Alkitab</button>
+  <button class="darkmode-btn" onclick="toggleDark()">Mode</button>
+  <div class="admin-btn" onclick="showLogin()">Admin</div>
 
   <div class="bottom-menu">
     <button onclick="scrollToSection('pengumuman')"><i class="fas fa-bullhorn"></i><br>Pengumuman</button>
@@ -176,54 +162,67 @@
     <button onclick="scrollToSection('donasi')"><i class="fas fa-hand-holding-heart"></i><br>Donasi</button>
   </div>
 
-  <div class="admin-btn" onclick="toggleAdminPanel()">
-    <i class="fas fa-user-cog"></i> Admin
+  <!-- Login Panel -->
+  <div class="login-panel" id="login-panel">
+    <h3>Login Admin</h3>
+    <input type="password" id="admin-pass" placeholder="Masukkan password admin" style="width:100%;"><br><br>
+    <button onclick="checkLogin()">Login</button>
   </div>
 
+  <!-- Admin Panel -->
   <div class="admin-panel" id="admin-panel">
     <h2>Admin Panel</h2>
     <label>Logo URL:</label>
-    <input type="text" id="logo-input-url" placeholder="Masukkan URL Logo Gereja" style="width: 100%;"><br><br>
+    <input type="text" id="logo-input-url" style="width: 100%;"><br><br>
 
     <label>Pengumuman:</label>
-    <textarea id="pengumuman-input" placeholder="Masukkan pengumuman..." rows="4" style="width: 100%;"></textarea><br><br>
+    <textarea id="pengumuman-input" rows="3" style="width: 100%;"></textarea><br><br>
 
-    <label>Jadwal Ibadah (HTML List):</label>
-    <textarea id="jadwal-input" placeholder="Masukkan jadwal ibadah..." rows="4" style="width: 100%;"></textarea><br><br>
+    <label>Jadwal (HTML List):</label>
+    <textarea id="jadwal-input" rows="3" style="width: 100%;"></textarea><br><br>
 
-    <label>Upload Foto Galeri:</label>
+    <label>Upload Galeri:</label>
     <input type="file" multiple id="galeri-input" onchange="uploadImage(event)" /><br><br>
 
-    <button onclick="saveContent()">Simpan Perubahan</button>
+    <button onclick="saveContent()">Simpan</button>
+    <button onclick="hideAdminPanel()">Tutup</button>
   </div>
 
   <script>
-    function toggleAdminPanel() {
-      const panel = document.getElementById('admin-panel');
-      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    function scrollToSection(section) {
+      const el = document.querySelector(`.${section}`);
+      if (el) window.scrollTo({ top: el.offsetTop - 60, behavior: 'smooth' });
     }
 
-    function scrollToSection(sectionClass) {
-      const section = document.querySelector(`.${sectionClass}`);
-      if (section) {
-        window.scrollTo({ top: section.offsetTop - 50, behavior: 'smooth' });
+    function toggleDark() {
+      document.body.classList.toggle("dark");
+      localStorage.setItem('dark', document.body.classList.contains('dark'));
+    }
+
+    function showLogin() {
+      document.getElementById("login-panel").style.display = "block";
+    }
+
+    function checkLogin() {
+      const pass = document.getElementById("admin-pass").value;
+      if (pass === "gpdi2024") {
+        document.getElementById("login-panel").style.display = "none";
+        document.getElementById("admin-panel").style.display = "block";
+      } else {
+        alert("Password salah!");
       }
     }
 
+    function hideAdminPanel() {
+      document.getElementById("admin-panel").style.display = "none";
+    }
+
     function saveContent() {
-      const pengumuman = document.getElementById('pengumuman-input').value;
-      const jadwal = document.getElementById('jadwal-input').value;
-      const logoUrl = document.getElementById('logo-input-url').value;
-
-      localStorage.setItem('pengumuman', pengumuman);
-      localStorage.setItem('jadwal', jadwal);
-      localStorage.setItem('logo-gereja', logoUrl);
-
-      document.getElementById('pengumuman-teks').innerText = pengumuman;
-      document.getElementById('jadwal-list').innerHTML = jadwal;
-      document.getElementById('logo-gereja').src = logoUrl;
-
-      alert("Perubahan berhasil disimpan!");
+      localStorage.setItem("pengumuman", document.getElementById("pengumuman-input").value);
+      localStorage.setItem("jadwal", document.getElementById("jadwal-input").value);
+      localStorage.setItem("logo-gereja", document.getElementById("logo-input-url").value);
+      alert("Disimpan!");
+      location.reload();
     }
 
     function uploadImage(event) {
@@ -239,37 +238,35 @@
           headers: { Authorization: 'Client-ID ' + clientId },
           body: formData
         })
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
           if (data.success) {
-            const img = document.createElement('img');
-            img.src = data.data.link;
-            document.getElementById('galeri-gambar').appendChild(img);
-
-            let galeri = JSON.parse(localStorage.getItem('galeri') || '[]');
+            const galeri = JSON.parse(localStorage.getItem("galeri") || "[]");
             galeri.push(data.data.link);
-            localStorage.setItem('galeri', JSON.stringify(galeri));
+            localStorage.setItem("galeri", JSON.stringify(galeri));
+            location.reload();
           }
-        })
-        .catch(error => console.error('Upload gagal:', error));
+        });
       }
     }
 
-    window.addEventListener('load', () => {
-      const savedLogo = localStorage.getItem('logo-gereja');
-      const savedPengumuman = localStorage.getItem('pengumuman');
-      const savedJadwal = localStorage.getItem('jadwal');
-      const savedGaleri = JSON.parse(localStorage.getItem('galeri') || '[]');
+    window.onload = () => {
+      if (localStorage.getItem("dark") === "true") document.body.classList.add("dark");
+      document.getElementById("pengumuman-teks").innerText = localStorage.getItem("pengumuman") || "";
+      document.getElementById("jadwal-list").innerHTML = localStorage.getItem("jadwal") || "";
+      document.getElementById("logo-gereja").src = localStorage.getItem("logo-gereja") || document.getElementById("logo-gereja").src;
 
-      if (savedLogo) document.getElementById('logo-gereja').src = savedLogo;
-      if (savedPengumuman) document.getElementById('pengumuman-teks').innerText = savedPengumuman;
-      if (savedJadwal) document.getElementById('jadwal-list').innerHTML = savedJadwal;
-      savedGaleri.forEach(url => {
-        const img = document.createElement('img');
-        img.src = url;
-        document.getElementById('galeri-gambar').appendChild(img);
+      const galeri = JSON.parse(localStorage.getItem("galeri") || "[]");
+      galeri.forEach(link => {
+        const img = document.createElement("img");
+        img.src = link;
+        document.getElementById("galeri-gambar").appendChild(img);
       });
-    });
+
+      document.getElementById("pengumuman-input").value = localStorage.getItem("pengumuman") || "";
+      document.getElementById("jadwal-input").value = localStorage.getItem("jadwal") || "";
+      document.getElementById("logo-input-url").value = localStorage.getItem("logo-gereja") || "";
+    }
   </script>
 </body>
 </html>
