@@ -21,42 +21,77 @@
       text-align: center;
       padding: 20px;
     }
-    .toggle-mode {
+
+    .fixed-btn {
       position: fixed;
       top: 10px;
       left: 10px;
-      cursor: pointer;
-      font-size: 20px;
       z-index: 1000;
-      background: #ddd;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .fixed-btn button {
+      font-size: 18px;
       padding: 6px 10px;
       border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      background: #ddd;
     }
-    .dark-mode .toggle-mode {
+
+    .dark-mode .fixed-btn button {
       background: #333;
       color: white;
     }
+
+    .admin-top {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1000;
+    }
+
+    .admin-top button {
+      font-size: 18px;
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: none;
+      background: #007bff;
+      color: white;
+    }
+
+    .dark-mode .admin-top button {
+      background: #0056b3;
+    }
+
     .section {
       padding: 20px;
     }
-    .admin-buttons {
+
+    .bottom-buttons {
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 20px;
+      margin: 30px 10px;
     }
-    .admin-buttons button {
+
+    .bottom-buttons button {
       padding: 10px;
       border: none;
       background: #007bff;
       color: white;
       border-radius: 5px;
       cursor: pointer;
+      font-size: 16px;
     }
-    .dark-mode .admin-buttons button {
+
+    .dark-mode .bottom-buttons button {
       background: #0056b3;
     }
+
     canvas.snow {
       pointer-events: none;
       position: fixed;
@@ -67,7 +102,16 @@
   </style>
 </head>
 <body>
-  <div class="toggle-mode" onclick="toggleDarkMode()" id="darkModeBtn">🌙</div>
+  <!-- Tombol kiri atas -->
+  <div class="fixed-btn">
+    <button onclick="toggleDarkMode()" id="darkModeBtn">🌙</button>
+    <button onclick="alert('Alkitab Mode Aktif')">✝️ Alkitab</button>
+  </div>
+
+  <!-- Tombol kanan atas -->
+  <div class="admin-top">
+    <button onclick="alert('Masuk ke Admin')">🔐 Admin</button>
+  </div>
 
   <header>
     <h2>Logo Gereja</h2>
@@ -98,15 +142,12 @@
     <p>Silakan transfer ke rekening BCA 123456789 a/n GPDI SYALOM.</p>
   </div>
 
-  <div class="section">
-    <div class="admin-buttons">
-      <button>Alkitab Mode</button>
-      <button>Admin</button>
-      <button>Pengumuman</button>
-      <button>Jadwal</button>
-      <button>Galeri</button>
-      <button>Donasi</button>
-    </div>
+  <!-- Tombol bawah -->
+  <div class="bottom-buttons">
+    <button onclick="alert('Edit Pengumuman')">📢 Pengumuman</button>
+    <button onclick="alert('Edit Jadwal')">🗓️ Jadwal</button>
+    <button onclick="alert('Upload Galeri')">🖼️ Galeri</button>
+    <button onclick="alert('Edit Donasi')">💰 Donasi</button>
   </div>
 
   <canvas class="snow"></canvas>
