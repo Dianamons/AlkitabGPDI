@@ -1,191 +1,172 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GPDI SYALOM</title>
   <style>
     body {
       margin: 0;
-      font-family: sans-serif;
-      color: white;
-      background-color: #121212;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #f0f0f0, #ffffff);
     }
 
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      background: #1e1e1e;
-      position: relative;
-      z-index: 1;
-    }
-
-    #dark-mode-toggle {
-      cursor: pointer;
-    }
-
-    .admin-button {
-      border: 2px solid #4CAF50;
-      padding: 5px 10px;
-      border-radius: 8px;
-      color: #4CAF50;
-      background: transparent;
-      cursor: pointer;
-    }
-
-    .admin-panel {
-      display: none;
-      padding: 20px;
-      background: #1e1e1e;
-    }
-
-    .admin-panel.active {
-      display: block;
-    }
-
-    select {
-      padding: 5px;
-      background: #2a2a2a;
+      background-color: #0a781f;
       color: white;
-      border: 1px solid #4CAF50;
+      text-align: center;
+      padding: 20px;
+      position: relative;
     }
 
-    canvas {
+    header img {
+      height: 40px;
+      vertical-align: middle;
+    }
+
+    header h1 {
+      margin: 10px 0 5px;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    main {
+      padding: 20px;
+      padding-bottom: 80px; /* untuk navbar bawah */
+    }
+
+    .section {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .section h2 {
+      margin-top: 0;
+    }
+
+    nav {
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 0;
+      bottom: 0;
+      width: 100%;
+      background: #0a781f;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.2);
     }
 
-    /* Animasi cahaya */
-    .light-glow {
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    nav a i {
+      font-size: 18px;
+      margin-bottom: 3px;
+    }
+
+    /* Animasi latar salib */
+    .animated-bg {
       position: fixed;
       top: 0; left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.1), transparent 70%);
-      animation: pulse 3s infinite ease-in-out;
-      z-index: 0;
+      z-index: -1;
+      overflow: hidden;
     }
 
-    @keyframes pulse {
-      0% { opacity: 0.1; }
-      50% { opacity: 0.3; }
-      100% { opacity: 0.1; }
+    .cross {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      opacity: 0.05;
+      background-image: url('https://i.ibb.co/dtWzkBG/cross.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: moveCross 30s linear infinite;
+    }
+
+    @keyframes moveCross {
+      0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 0.05;
+      }
+      50% {
+        opacity: 0.1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0.05;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div id="dark-mode-toggle">🌙</div>
-    <h1 style="text-align:center; flex: 1;">GPDI SYALOM</h1>
-    <button class="admin-button" onclick="toggleAdmin()">Admin</button>
-  </header>
 
-  <div class="admin-panel" id="admin-panel">
-    <label>Pilih Animasi Latar:</label>
-    <select id="animasiSelector" onchange="ubahAnimasi(this.value)">
-      <option value="none">Tanpa Animasi</option>
-      <option value="salib">Salib Bergerak</option>
-      <option value="salju">Salju</option>
-      <option value="cahaya">Cahaya Latar</option>
-    </select>
+<div class="animated-bg" id="bg-cross"></div>
+
+<header>
+  <img src="https://i.ibb.co/dtWzkBG/cross.png" alt="Logo Gereja">
+  <h1>GPDI SYALOM</h1>
+  <p>JLN. PUTRI AYU KM 27, DESA MAMUGO, ROKAN HILIR</p>
+</header>
+
+<main>
+  <div class="section" id="pengumuman">
+    <h2>Pengumuman</h2>
+    <p>Selamat datang di website resmi GPDI SYALOM. Tuhan Yesus memberkati!</p>
   </div>
 
-  <!-- Animasi canvas -->
-  <canvas id="canvasAnimasi"></canvas>
-  <div class="light-glow" id="cahayaLatar" style="display: none;"></div>
+  <div class="section" id="jadwal">
+    <h2>Jadwal Ibadah</h2>
+    <ul>
+      <li>Minggu, 09:00 WIB - Ibadah Raya</li>
+      <li>Rabu, 18:00 WIB - Ibadah Doa</li>
+    </ul>
+  </div>
 
-  <script>
-    const canvas = document.getElementById('canvasAnimasi');
-    const ctx = canvas.getContext('2d');
-    const cahayaLatar = document.getElementById('cahayaLatar');
-    const selector = document.getElementById('animasiSelector');
-    const storedAnimasi = localStorage.getItem("animasi") || "salib";
-    selector.value = storedAnimasi;
+  <div class="section" id="galeri">
+    <h2>Galeri Kegiatan</h2>
+    <p>Belum ada foto yang ditampilkan.</p>
+  </div>
 
-    let salib = new Image();
-    salib.src = "https://i.imgur.com/8Q3Rk2e.png";
+  <div class="section" id="donasi">
+    <h2>Donasi</h2>
+    <p>Silakan hubungi bendahara gereja untuk informasi donasi.</p>
+  </div>
+</main>
 
-    let animasi = storedAnimasi;
-    let snowflakes = [];
+<nav>
+  <a href="#pengumuman"><i>📢</i>Pengumuman</a>
+  <a href="#jadwal"><i>📅</i>Jadwal</a>
+  <a href="#galeri"><i>🖼️</i>Galeri</a>
+  <a href="#donasi"><i>❤️</i>Donasi</a>
+</nav>
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
+<script>
+  // Membuat salib acak di latar belakang
+  const bg = document.getElementById('bg-cross');
+  for (let i = 0; i < 20; i++) {
+    const cross = document.createElement('div');
+    cross.className = 'cross';
+    cross.style.left = Math.random() * 100 + 'vw';
+    cross.style.top = Math.random() * -100 + 'vh';
+    cross.style.animationDuration = 20 + Math.random() * 20 + 's';
+    cross.style.opacity = 0.03 + Math.random() * 0.07;
+    bg.appendChild(cross);
+  }
+</script>
 
-    function ubahAnimasi(value) {
-      animasi = value;
-      localStorage.setItem("animasi", value);
-      if (value === "cahaya") {
-        cahayaLatar.style.display = "block";
-      } else {
-        cahayaLatar.style.display = "none";
-      }
-    }
-
-    function toggleAdmin() {
-      document.getElementById('admin-panel').classList.toggle('active');
-    }
-
-    function darkModeToggle() {
-      document.body.classList.toggle('dark');
-    }
-
-    document.getElementById('dark-mode-toggle').addEventListener('click', darkModeToggle);
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    function drawSalib() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      let time = Date.now() / 1000;
-      for (let i = 0; i < 5; i++) {
-        let x = canvas.width / 2 + Math.sin(time + i) * 200;
-        let y = canvas.height / 2 + Math.cos(time + i) * 200;
-        ctx.drawImage(salib, x - 25, y - 25, 50, 50);
-      }
-    }
-
-    function drawSalju() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      snowflakes.forEach(flake => {
-        flake.y += flake.speed;
-        if (flake.y > canvas.height) flake.y = 0;
-        ctx.beginPath();
-        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'white';
-        ctx.fill();
-      });
-    }
-
-    function initSalju() {
-      snowflakes = [];
-      for (let i = 0; i < 100; i++) {
-        snowflakes.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          radius: Math.random() * 3 + 1,
-          speed: Math.random() * 1 + 0.5
-        });
-      }
-    }
-
-    function animate() {
-      if (animasi === "salib") drawSalib();
-      else if (animasi === "salju") drawSalju();
-      else ctx.clearRect(0, 0, canvas.width, canvas.height);
-      requestAnimationFrame(animate);
-    }
-
-    if (animasi === "salju") initSalju();
-    if (animasi === "cahaya") cahayaLatar.style.display = "block";
-    animate();
-  </script>
 </body>
 </html>
