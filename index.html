@@ -2,119 +2,216 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GPDI SYALOM</title>
   <style>
     body {
       font-family: sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f5f5f5;
-      color: #333;
+      background: #fff;
+      color: #000;
+      transition: background 0.3s, color 0.3s;
     }
-
     .dark-mode {
-      background-color: #121212;
-      color: #ffffff;
+      background: #111;
+      color: #f2f2f2;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
     }
 
+    /* Tombol atas */
     .top-buttons {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px;
-      background: #007bff;
-      color: white;
-    }
-
-    .top-buttons button {
-      background: white;
-      color: #007bff;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 5px;
-      font-size: 14px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .top-buttons .dark-toggle {
-      position: absolute;
+      position: fixed;
       top: 10px;
       left: 10px;
+      z-index: 1000;
+    }
+    .top-buttons button {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+      padding: 8px 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
     }
 
-    .bottom-buttons {
+    .admin-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      font-size: 18px;
+      padding: 8px 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      z-index: 1000;
+      cursor: pointer;
+    }
+
+    /* Bagian konten */
+    .section {
+      padding: 20px;
+    }
+
+    #galeri img {
+      max-width: 100%;
+      margin: 10px;
+      border-radius: 10px;
+    }
+
+    /* Tombol bawah */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #007bff;
       display: flex;
       justify-content: space-around;
-      gap: 10px;
-      padding: 20px 10px;
-      background: #007bff;
-      flex-wrap: wrap;
-    }
-
-    .bottom-buttons button {
-      background: white;
-      color: #007bff;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      font-size: 14px;
-      cursor: pointer;
-      display: flex;
       align-items: center;
-      gap: 6px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      padding: 10px 0;
+      z-index: 999;
+    }
+    .bottom-nav button {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
     }
 
-    .dark-mode .bottom-buttons {
-      background: #0056b3;
+    .bottom-nav button i {
+      font-size: 20px;
+      margin-bottom: 3px;
     }
 
-    .dark-mode .bottom-buttons button {
-      background: #222;
-      color: #fff;
-    }
-
-    .dark-mode .top-buttons {
-      background: #0056b3;
-    }
-
-    .dark-mode .top-buttons button {
-      background: #222;
-      color: #fff;
+    /* Snow */
+    canvas.snow {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 998;
     }
   </style>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+  <!-- Tombol Kiri Atas -->
   <div class="top-buttons">
-    <div class="dark-toggle">
-      <button onclick="toggleDarkMode()">🌙 Mode Gelap</button>
-    </div>
-    <button onclick="alert('Buka Alkitab')">📖 Alkitab</button>
-    <button onclick="alert('Login Admin')">⚙️ Admin</button>
+    <button onclick="toggleDarkMode()" id="darkModeBtn"><i class="fas fa-moon"></i></button>
+    <button><i class="fas fa-book"></i> Alkitab</button>
   </div>
 
-  <!-- Konten utama di sini -->
-  <main style="padding: 20px;">
-    <h1>Selamat datang di GPDI SYALOM</h1>
-    <p>Alamat: JLN. PUTRI AYU KM 27, DESA MAMUGO, ROKAN HILIR</p>
-  </main>
+  <!-- Tombol Admin Kanan Atas -->
+  <button class="admin-btn"><i class="fas fa-user-cog"></i> Admin</button>
 
-  <!-- Tombol di bagian bawah -->
-  <div class="bottom-buttons">
-    <button onclick="alert('Edit Pengumuman')">📢 Pengumuman</button>
-    <button onclick="alert('Edit Jadwal')">🗓️ Jadwal</button>
-    <button onclick="alert('Upload Galeri')">🖼️ Galeri</button>
-    <button onclick="alert('Edit Donasi')">💰 Donasi</button>
+  <header>
+    <h2>Logo Gereja</h2>
+    <h1>GPDI SYALOM</h1>
+    <p>JLN. PUTRI AYU KM 27, DESA MAMUGO, ROKAN HILIR</p>
+  </header>
+
+  <div class="section">
+    <h2>Pengumuman</h2>
+    <p id="pengumuman">Selamat datang di website resmi GPDI SYALOM.</p>
   </div>
+
+  <div class="section">
+    <h2>Jadwal Ibadah</h2>
+    <ul id="jadwal">
+      <li>Minggu, 09:00 WIB - Ibadah Raya</li>
+      <li>Rabu, 18:00 WIB - Ibadah Doa</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Galeri Kegiatan</h2>
+    <div id="galeri"></div>
+  </div>
+
+  <div class="section">
+    <h2>Donasi</h2>
+    <p>Silakan transfer ke rekening BCA 123456789 a/n GPDI SYALOM.</p>
+  </div>
+
+  <!-- Tombol Navigasi Bawah -->
+  <div class="bottom-nav">
+    <button onclick="scrollToSection('pengumuman')"><i class="fas fa-bullhorn"></i>Pengumuman</button>
+    <button onclick="scrollToSection('jadwal')"><i class="fas fa-calendar-alt"></i>Jadwal</button>
+    <button onclick="scrollToSection('galeri')"><i class="fas fa-image"></i>Galeri</button>
+    <button onclick="scrollToSection('donasi')"><i class="fas fa-donate"></i>Donasi</button>
+  </div>
+
+  <!-- Salju -->
+  <canvas class="snow"></canvas>
 
   <script>
+    // Dark mode
     function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
+      const body = document.body;
+      body.classList.toggle("dark-mode");
+      const btn = document.getElementById("darkModeBtn");
+      btn.innerHTML = body.classList.contains("dark-mode") ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
     }
+
+    // Navigasi ke bagian
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Snow animation
+    const canvas = document.querySelector("canvas.snow");
+    const ctx = canvas.getContext("2d");
+    let w, h;
+    let snowflakes = [];
+
+    function resizeCanvas() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+
+    function createSnowflakes() {
+      const x = Math.random() * w;
+      const y = Math.random() * h;
+      const radius = Math.random() * 4 + 1;
+      const speed = Math.random() * 1 + 0.5;
+      snowflakes.push({ x, y, radius, speed });
+    }
+
+    function drawSnowflakes() {
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "white";
+      snowflakes.forEach(flake => {
+        ctx.beginPath();
+        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+        ctx.fill();
+        flake.y += flake.speed;
+        if (flake.y > h) flake.y = 0;
+      });
+    }
+
+    function update() {
+      drawSnowflakes();
+      requestAnimationFrame(update);
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    setInterval(createSnowflakes, 200);
+    update();
   </script>
 </body>
 </html>
