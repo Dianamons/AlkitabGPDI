@@ -1,120 +1,109 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Toko Dedi</title>
+<!DOCTYPE html><html lang="id"><head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NINA LONTONG</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      font-family: sans-serif;
-      background: #f5f5f5;
-      margin: 0;
-      padding: 0;
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      50% { transform: translateX(4px); }
+      75% { transform: translateX(-4px); }
     }
-    header {
-      background: #ee4d2d;
-      color: white;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .keranjang {
-      position: relative;
-      cursor: pointer;
-    }
-    .keranjang span {
-      background: yellow;
-      color: black;
-      padding: 2px 6px;
-      border-radius: 50%;
-      font-size: 12px;
-      position: absolute;
-      top: -5px;
-      right: -10px;
-    }
-    .produk-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px;
-      padding: 20px;
-    }
-    .product {
-      background: white;
-      padding: 10px;
-      border-radius: 8px;
-      text-align: center;
-      box-shadow: 0 0 4px rgba(0,0,0,0.1);
-    }
-    .product img {
-      width: 100%;
-      height: auto;
-      border-radius: 6px;
-    }
-    button {
-      margin-top: 10px;
-      background: #ee4d2d;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #c93b1f;
+    .animate-shake {
+      animation: shake 0.5s;
     }
   </style>
-</head>
-<body>
+</head><body class="bg-gray-50 text-gray-800">
+  <!-- Header -->
+  <header class="bg-orange-500 text-white p-4 flex items-center justify-between">
+    <div class="text-xl font-bold">ShopNow</div>
+    <div class="flex-grow mx-4">
+      <input type="text" placeholder="Cari produk..." class="w-full p-2 rounded text-black" />
+    </div>
+    <button><i class="fas fa-search"></i></button>
+  </header>  <!-- Menu Ikon -->  <div class="flex justify-around bg-white py-4 shadow">
+    <div class="flex flex-col items-center text-sm">
+      <i class="fas fa-mobile-alt text-orange-500 text-2xl"></i>
+      <span>Elektronik</span>
+    </div>
+    <div class="flex flex-col items-center text-sm">
+      <i class="fas fa-tshirt text-orange-500 text-2xl"></i>
+      <span>Fashion</span>
+    </div>
+    <div class="flex flex-col items-center text-sm">
+      <i class="fas fa-utensils text-orange-500 text-2xl"></i>
+      <span>Makanan</span>
+    </div>
+    <div class="flex flex-col items-center text-sm">
+      <i class="fas fa-home text-orange-500 text-2xl"></i>
+      <span>Rumah</span>
+    </div>
+    <div class="flex flex-col items-center text-sm">
+      <i class="fas fa-heartbeat text-orange-500 text-2xl"></i>
+      <span>Kesehatan</span>
+    </div>
+  </div>  <!-- Banner -->  <section class="bg-purple-500 text-white text-center p-6 my-4 mx-4 rounded-lg">
+    <h2 class="text-xl font-bold">Gratis Ongkir!</h2>
+    <p class="mt-1">Untuk pembelian minimal Rp 100.000</p>
+    <button class="bg-white text-purple-700 mt-3 px-4 py-2 rounded-full font-semibold">Syarat & Ketentuan</button>
+  </section>  <!-- Flash Sale -->  <section class="px-4">
+    <div class="flex justify-between items-center mb-2">
+      <h3 class="font-bold text-lg">Flash Sale</h3>
+      <span class="text-sm text-orange-500 cursor-pointer">Lihat Semua</span>
+    </div>
+    <div class="flex gap-4 overflow-x-auto">
+      <div onclick="bukaDetail('Produk A')" class="bg-white rounded-lg shadow p-4 min-w-[120px] transform transition duration-300 hover:scale-105 hover:shadow-lg relative cursor-pointer">
+        <div class="bg-gray-200 h-20 mb-2 rounded"></div>
+        <div class="text-red-500 font-bold">50%</div>
+        <button onclick="event.stopPropagation(); tambahKeKeranjang();" class="absolute bottom-2 right-2 bg-orange-500 text-white px-2 py-1 text-xs rounded">+</button>
+      </div>
+      <div onclick="bukaDetail('Produk B')" class="bg-white rounded-lg shadow p-4 min-w-[120px] transform transition duration-300 hover:scale-105 hover:shadow-lg relative cursor-pointer">
+        <div class="bg-gray-200 h-20 mb-2 rounded"></div>
+        <div class="text-red-500 font-bold">40%</div>
+        <button onclick="event.stopPropagation(); tambahKeKeranjang();" class="absolute bottom-2 right-2 bg-orange-500 text-white px-2 py-1 text-xs rounded">+</button>
+      </div>
+    </div>
+  </section>  <!-- Bar bawah -->  <footer class="fixed bottom-0 w-full bg-white border-t flex justify-between text-center text-sm">
+    <div class="flex-1 py-2 flex flex-col items-center">
+      <i class="fas fa-home text-orange-500 text-lg"></i>
+      <span class="text-orange-500">Beranda</span>
+    </div>
+    <div class="flex-1 py-2 flex flex-col items-center">
+      <i class="fas fa-th-large text-gray-600 text-lg"></i>
+      <span class="text-gray-600">Kategori</span>
+    </div>
+    <div class="flex-1 py-2 flex flex-col items-center relative">
+      <i id="ikon-keranjang" class="fas fa-shopping-cart text-gray-600 text-lg"></i>
+      <span class="text-gray-600">Keranjang</span>
+      <span id="jumlah-keranjang" class="absolute -top-1 right-3 bg-red-500 text-white text-xs px-1.5 rounded-full hidden">0</span>
+    </div>
+    <div class="flex-1 py-2 flex flex-col items-center">
+      <i class="fas fa-bell text-gray-600 text-lg"></i>
+      <span class="text-gray-600">Notifikasi</span>
+    </div>
+    <div class="flex-1 py-2 flex flex-col items-center">
+      <i class="fas fa-user text-gray-600 text-lg"></i>
+      <span class="text-gray-600">Akun</span>
+    </div>
+  </footer>  <script>
+    let totalKeranjang = 0;
 
-<header>
-  <h2>Toko Dedi</h2>
-  <div class="keranjang" onclick="location.href='checkout.html'">
-    Keranjang
-    <span id="jumlahKeranjang">0</span>
-  </div>
-</header>
+    function tambahKeKeranjang() {
+      const ikon = document.getElementById('ikon-keranjang');
+      const jumlah = document.getElementById('jumlah-keranjang');
 
-<div class="produk-container">
-  <div class="product">
-    <img src="https://via.placeholder.com/150" alt="Produk A">
-    <h3>Produk A</h3>
-    <p>Rp 10.000</p>
-    <button onclick="tambahKeKeranjang('Produk A', 10000, 'https://via.placeholder.com/150')">Tambah</button>
-  </div>
-  <div class="product">
-    <img src="https://via.placeholder.com/150/0000FF" alt="Produk B">
-    <h3>Produk B</h3>
-    <p>Rp 15.000</p>
-    <button onclick="tambahKeKeranjang('Produk B', 15000, 'https://via.placeholder.com/150/0000FF')">Tambah</button>
-  </div>
-</div>
+      ikon.classList.add('animate-shake');
+      setTimeout(() => ikon.classList.remove('animate-shake'), 500);
 
-<script>
-  function updateJumlahKeranjang() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const total = cart.reduce((sum, item) => sum + item.jumlah, 0);
-    document.getElementById("jumlahKeranjang").innerText = total;
-  }
-
-  function tambahKeKeranjang(nama, harga, gambar) {
-    let keranjang = JSON.parse(localStorage.getItem("cart")) || [];
-    const index = keranjang.findIndex(item => item.nama === nama);
-    
-    if (index !== -1) {
-      keranjang[index].jumlah += 1;
-    } else {
-      keranjang.push({ nama, harga, jumlah: 1, gambar });
+      totalKeranjang++;
+      jumlah.innerText = totalKeranjang;
+      jumlah.classList.remove('hidden');
     }
 
-    localStorage.setItem("cart", JSON.stringify(keranjang));
-    updateJumlahKeranjang();
-    alert("Produk ditambahkan ke keranjang!");
-  }
-
-  // Panggil saat halaman dibuka
-  updateJumlahKeranjang();
-</script>
-
-</body>
-</html>
+    function bukaDetail(namaProduk) {
+      alert('Navigasi ke halaman detail: ' + namaProduk);
+      // Ganti alert dengan: window.location.href = `/detail.html?produk=${encodeURIComponent(namaProduk)}`;
+    }
+  </script></body></html>
