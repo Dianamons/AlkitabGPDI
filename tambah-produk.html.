@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tambah Produk - NINA LONTONG</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-orange-500 text-white p-4 text-center font-bold text-xl">
+    Tambah Produk
+  </header>
+
+  <!-- Form Tambah Produk -->
+  <div class="max-w-md mx-auto bg-white p-6 mt-6 rounded shadow">
+    <form id="form-produk" class="space-y-4">
+      <div>
+        <label class="block font-semibold mb-1">Nama Produk</label>
+        <input type="text" id="nama" required class="w-full border p-2 rounded"/>
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Harga (Rp)</label>
+        <input type="number" id="harga" required class="w-full border p-2 rounded"/>
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Kategori</label>
+        <select id="kategori" class="w-full border p-2 rounded">
+          <option value="Elektronik">Elektronik</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Makanan">Makanan</option>
+          <option value="Rumah">Rumah</option>
+          <option value="Kesehatan">Kesehatan</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Deskripsi</label>
+        <textarea id="deskripsi" rows="3" class="w-full border p-2 rounded"></textarea>
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1">Gambar</label>
+        <input type="file" id="gambar" accept="image/*" class="w-full border p-2 rounded" />
+        <img id="preview" src="" class="mt-2 w-32 h-32 object-cover rounded hidden" />
+      </div>
+
+      <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded">
+        Simpan Produk
+      </button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('form-produk');
+    const gambarInput = document.getElementById('gambar');
+    const preview = document.getElementById('preview');
+
+    gambarInput.addEventListener('change', function () {
+      const file = gambarInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.src = e.target.result;
+          preview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const nama = document.getElementById('nama').value.trim();
+      const harga = document.getElementById('harga').value.trim();
+      const kategori = document.getElementById('kategori').value;
+      const deskripsi = document.getElementById('deskripsi').value.trim();
+      const gambar = preview.src;
+
+      if (!nama || !harga || !gambar) {
+        alert('Isi semua data dengan benar!');
+        return;
+      }
+
+      const produkBaru = {
+        id: Date.now(),
+        nama,
+        harga,
+        kategori,
+        deskripsi,
+        gambar
+      };
+
+      const produkSimpan = JSON.parse(localStorage.getItem('produkList') || '[]');
+      produkSimpan.push(produkBaru);
+      localStorage.setItem('produkList', JSON.stringify(produkSimpan));
+
+      alert('Produk berhasil ditambahkan!');
+      window.location.href = 'index.html'; // ganti ke halaman utama sesuai nama file Dedi
+    });
+  </script>
+</body>
+</html>
