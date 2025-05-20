@@ -51,18 +51,18 @@
   </section>  <!-- Flash Sale -->  <section class="px-4">
     <div class="flex justify-between items-center mb-2">
       <h3 class="font-bold text-lg">Flash Sale</h3>
-      <span class="text-sm text-orange-500">Lihat Semua</span>
+      <span class="text-sm text-orange-500 cursor-pointer">Lihat Semua</span>
     </div>
     <div class="flex gap-4 overflow-x-auto">
-      <div class="bg-white rounded-lg shadow p-4 min-w-[120px] transform transition duration-300 hover:scale-105 hover:shadow-lg relative">
+      <div onclick="bukaDetail('Produk A')" class="bg-white rounded-lg shadow p-4 min-w-[120px] transform transition duration-300 hover:scale-105 hover:shadow-lg relative cursor-pointer">
         <div class="bg-gray-200 h-20 mb-2 rounded"></div>
         <div class="text-red-500 font-bold">50%</div>
-        <button onclick="tambahKeKeranjang()" class="absolute bottom-2 right-2 bg-orange-500 text-white px-2 py-1 text-xs rounded">+</button>
+        <button onclick="event.stopPropagation(); tambahKeKeranjang();" class="absolute bottom-2 right-2 bg-orange-500 text-white px-2 py-1 text-xs rounded">+</button>
       </div>
-      <div class="bg-white rounded-lg shadow p-4 min-w-[120px] transform transition duration-300 hover:scale-105 hover:shadow-lg relative">
+      <div onclick="bukaDetail('Produk B')" class="bg-white rounded-lg shadow p-4 min-w-[120px] transform transition duration-300 hover:scale-105 hover:shadow-lg relative cursor-pointer">
         <div class="bg-gray-200 h-20 mb-2 rounded"></div>
         <div class="text-red-500 font-bold">40%</div>
-        <button onclick="tambahKeKeranjang()" class="absolute bottom-2 right-2 bg-orange-500 text-white px-2 py-1 text-xs rounded">+</button>
+        <button onclick="event.stopPropagation(); tambahKeKeranjang();" class="absolute bottom-2 right-2 bg-orange-500 text-white px-2 py-1 text-xs rounded">+</button>
       </div>
     </div>
   </section>  <!-- Bar bawah -->  <footer class="fixed bottom-0 w-full bg-white border-t flex justify-between text-center text-sm">
@@ -74,9 +74,10 @@
       <i class="fas fa-th-large text-gray-600 text-lg"></i>
       <span class="text-gray-600">Kategori</span>
     </div>
-    <div class="flex-1 py-2 flex flex-col items-center">
+    <div class="flex-1 py-2 flex flex-col items-center relative">
       <i id="ikon-keranjang" class="fas fa-shopping-cart text-gray-600 text-lg"></i>
       <span class="text-gray-600">Keranjang</span>
+      <span id="jumlah-keranjang" class="absolute -top-1 right-3 bg-red-500 text-white text-xs px-1.5 rounded-full hidden">0</span>
     </div>
     <div class="flex-1 py-2 flex flex-col items-center">
       <i class="fas fa-bell text-gray-600 text-lg"></i>
@@ -87,9 +88,22 @@
       <span class="text-gray-600">Akun</span>
     </div>
   </footer>  <script>
+    let totalKeranjang = 0;
+
     function tambahKeKeranjang() {
       const ikon = document.getElementById('ikon-keranjang');
+      const jumlah = document.getElementById('jumlah-keranjang');
+
       ikon.classList.add('animate-shake');
       setTimeout(() => ikon.classList.remove('animate-shake'), 500);
+
+      totalKeranjang++;
+      jumlah.innerText = totalKeranjang;
+      jumlah.classList.remove('hidden');
+    }
+
+    function bukaDetail(namaProduk) {
+      alert('Navigasi ke halaman detail: ' + namaProduk);
+      // Ganti alert dengan: window.location.href = `/detail.html?produk=${encodeURIComponent(namaProduk)}`;
     }
   </script></body></html>
